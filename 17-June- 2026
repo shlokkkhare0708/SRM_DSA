@@ -1,143 +1,159 @@
-#include <stdio.h>
+1. Palindrome Number(LeetCode-9)...
 
-int main() {
-    int num, temp, rev = 0, rem;
+class Solution {
+    public boolean isPalindrome(int x) {
 
-    printf("Enter a number: ");
-    scanf("%d", &num);
+        if(x<0){
+            return false;
+        }
 
-    temp = num;
+        if(x%10 == 0 && x != 0){
+            return false;
+        }
 
-    if(num < 0) {
-        printf("Not a palindrome\n");
-        return 0;
+        int temp = x;
+        int rev = 0;
+        while(temp != 0)
+        {
+            int lastDigit = temp%10;
+            rev = rev * 10 + lastDigit;
+            temp = temp/10;
+        }
+        
+        if(rev == x){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-
-    while(num != 0) {
-        rem = num % 10;
-        rev = rev * 10 + rem;
-        num = num / 10;
-    }
-
-    if(temp == rev) {
-        printf("Palindrome number\n");
-    }
-    else {
-        printf("Not a palindrome\n");
-    }
-
-    return 0;
 }
 
+---------------------------------------------------------------------------------------------------------------
 
+2. Palindrome String...
 
-----------------------------------------------------------------------------------------------------------
+import java.util.Scanner;
+public class PalindromeCheck {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String s = sc.nextLine();
 
-#include <stdio.h>
-#include <stdlib.h>
+        s = s.toLowerCase();
 
-int main() {
-    int A = 5, B = 117;
+        int left = 0;
+        int right = s.length() - 1;
 
-    int dist = B - A;
-    if(dist < 0) dist = -dist;
+        boolean isPalindrome = true;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
+        }
 
-    int moves = (dist + 4) / 5;
-
-    printf("%d", moves);
-
-    return 0;
+        if (isPalindrome) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not a Palindrome");
+        }
+    }
 }
 
------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
 
-#include <stdio.h>
+3. Count minimum no. of steps...
 
-int main() {
-    int num;
-
-    scanf("%d", &num);
-
-    if(num % 3 == 0) {
-        printf("B wins");
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int a[] = {1,2,3,4,5};
+        int steps = 0;
+        int distance;
+        
+        System.out.println("Enter the distance to be covered");
+        distance =sc.nextInt();
+        
+        int rem = distance % 5;
+        if(rem != 0){
+            steps++;
+        }
+        steps = steps + distance/5;
+        System.out.println(steps);
     }
-    else {
-        printf("A wins");
-    }
-
-    return 0;
 }
 
------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
 
-#include <stdio.h>
+4. Find who will win A or B...
 
-int main() {
-    int a[5];
-    int i;
-
-    printf("Enter 5 numbers:\n");
-
-    for(i = 0; i < 5; i++) {
-        scanf("%d", &a[i]);
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int n;
+        System.out.println("Enter a no.");
+        n = sc.nextInt();
+        
+        if(n%3 == 0){
+            System.out.println("B wins...");
+        }
+        else{
+            System.out.println("A wins...");
+        }
     }
-
-    printf("Array elements are:\n");
-
-    for(i = 0; i < 5; i++) {
-        printf("%d ", a[i]);
-    }
-
-    return 0;
 }
 
-------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
-#include <stdio.h>
+5. Input an array and print it...
 
-int main() {
-    int a[5];
-    int i, sum = 0;
-
-    printf("Enter 5 numbers:\n");
-
-    for(i = 0; i < 5; i++) {
-        scanf("%d", &a[i]);
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size;
+        System.out.println("Enter the size of the array");
+        size = sc.nextInt();
+        int arr[] = new int[size];
+        System.out.println("enter "+ size + " elements");
+        for(int i=0;i<size;i++)
+        {
+            arr[i] = sc.nextInt();
+        }
+        for(int i=0;i<size;i++)
+        {
+            System.out.print(arr[i]+" ");
+        }
     }
-
-    for(i = 0; i < 5; i++) {
-        sum = sum + a[i];
-    }
-
-    printf("Sum = %d", sum);
-
-    return 0;
 }
 
------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
 
-#include <stdio.h>
+6. Calculate sum and average of an array...
 
-int main() {
-    int a[5];
-    int i, sum = 0;
-    float avg;
-
-    printf("Enter 5 numbers:\n");
-
-    for(i = 0; i < 5; i++) {
-        scanf("%d", &a[i]);
+import java.util.*;
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int size;
+        int sum = 0;
+        System.out.println("Enter the size of the array");
+        size = sc.nextInt();
+        int arr[] = new int[size];
+        System.out.println("enter "+ size + " elements");
+        for(int i=0;i<size;i++)
+        {
+            arr[i] = sc.nextInt();
+            sum = sum + arr[i];
+        }
+       System.out.println("Sum is :" + sum);
+       System.out.println("Average is :" + sum/size);
     }
-
-    for(i = 0; i < 5; i++) {
-        sum = sum + a[i];
-    }
-
-    avg = sum / 5.0;
-
-    printf("Average = %.2f", avg);
-
-    return 0;
 }
-
--------------------------------------------------------------------------------------------------------------
