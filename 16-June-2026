@@ -1,7 +1,7 @@
+/* 1. Grade Calculator */
 #include <stdio.h>
 #include <limits.h>
 
-/* 1. Grade Calculator */
 void gradeCalculator() {
     int marks;
 
