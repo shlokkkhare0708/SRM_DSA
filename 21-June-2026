@@ -1,119 +1,148 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
+1. Middle of the Linked List(LeetCode 876)...
 
-struct ListNode* middleNode(struct ListNode* head) {
-    struct ListNode *slow = head;
-    struct ListNode *fast = head;
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
 
-    while (fast != NULL && fast->next != NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
     }
-
-    return slow;
 }
 
--------------------------------------------------------------------------------------------------------------------
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
+-----------------------------------------------------------------------------------------
 
-void deleteNode(struct ListNode* node) {
-    node->val = node->next->val;
-    node->next = node->next->next;
+2. Linked List Cycle(LeetCode 141)...
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
--------------------------------------------------------------------------------------------------------------------
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     struct ListNode *next;
- * };
- */
+------------------------------------------------------------------------------------------
 
-bool hasCycle(struct ListNode *head) {
-    struct ListNode *slow = head;
-    struct ListNode *fast = head;
+3. Delete Node in a Linked List(LeetCode 237)...
 
-    while (fast != NULL && fast->next != NULL) {
-        slow = slow->next;
-        fast = fast->next->next;
+class Solution {
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+    }
+}
 
-        if (slow == fast) {
+------------------------------------------------------------------------------------------
+
+4. Reverse Linked List(LeetCode 206)...
+
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode curr = head, prev = null, next;
+        while(curr != null)
+        {
+        next = curr.next;
+        curr.next = prev;
+
+        prev = curr;
+        curr = next;
+        }
+        
+        return prev;
+    }
+}
+
+------------------------------------------------------------------------------------------
+
+5. Palindrome Linked List(LeetCode 234)...
+
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null){
             return true;
         }
-    }
 
-    return false;
-}
+        ListNode slow = head;
+        ListNode fast = head;
 
---------------------------------------------------------------------------------------------------------------------
+        while(fast != null && fast.next != null)
+        {
+            slow = slow.next;
+            fast = fast.next.next;
+        } 
+        ListNode prev = null;
+        ListNode curr = slow;
 
-bool isValid(char* s) {
-    char stack[10000];
-    int top = -1;
-
-    for (int i = 0; s[i] != '\0'; i++) {
-
-        if (s[i] == '(' || s[i] == '{' || s[i] == '[') {
-            stack[++top] = s[i];
+        while(curr != null)
+        {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
         }
-        else {
+        ListNode first = head;
+        ListNode second = prev;
 
-            if (top == -1)
-                return false;
+        while(second != null){
 
-            if ((s[i] == ')' && stack[top] == '(') ||
-                (s[i] == '}' && stack[top] == '{') ||
-                (s[i] == ']' && stack[top] == '[')) {
-                top--;
-            }
-            else {
+            if(first.val != second.val){
                 return false;
             }
+            first = first.next;
+            second = second.next;
         }
+        return true;
     }
-
-    return top == -1;
 }
 
--------------------------------------------------------------------------------------------------------------------------
-#include <stdio.h>
+------------------------------------------------------------------------------------------
 
-int undo[10], redo[10];
-int utop = -1, rtop = -1;
+6. Valid Parentheses(LeetCode 20)...
 
-int main() {
-    undo[++utop] = 10;
-    undo[++utop] = 20;
-    undo[++utop] = 30;
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> st = new Stack<>();
 
-    printf("Undo Stack: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
+        for(int i=0;i<s.length();i++)
+        {
+            char ch = s.charAt(i);
 
-    redo[++rtop] = undo[utop--];
+            if(ch == '(' || ch == '{' || ch == '[')
+            st.push(ch);
 
-    printf("\nAfter Undo: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
+            else{
+                if(st.isEmpty())
+                return false;
 
-    undo[++utop] = redo[rtop--];
+                char top = st.pop();
 
-    printf("\nAfter Redo: ");
-    for(int i = utop; i >= 0; i--)
-        printf("%d ", undo[i]);
+                if(ch == ')' && top != '(')
+                return false;
 
-    return 0;
+                else if(ch == '}' && top != '{')
+                return false;
+
+                else if(ch == ']' && top != '[')
+                return false;
+            }
+        }
+        return st.isEmpty();
+    }
 }
-----------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------
